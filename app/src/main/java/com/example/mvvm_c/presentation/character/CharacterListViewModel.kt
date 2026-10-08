@@ -5,7 +5,6 @@ import com.example.mvvm_c.data.model.DataModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 
 class CharacterListViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(value = CharacterListUiState())
@@ -22,21 +21,21 @@ class CharacterListViewModel : ViewModel() {
                 id = 1,
                 name = "Rick Sanchez",
                 status = "Alive",
-                species = "Human",
+                species = "Humano",
                 image = ""
             ),
             DataModel(
                 id = 2,
                 name = "Morty Sanchez",
                 status = "Alive",
-                species = "Human",
+                species = "Humano",
                 image = ""
             ),
             DataModel(
                 id = 2,
                 name = "Summer Sanchez",
                 status = "Alive",
-                species = "Human",
+                species = "Humano",
                 image = ""
             )
         )

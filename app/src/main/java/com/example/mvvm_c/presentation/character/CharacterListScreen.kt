@@ -34,7 +34,7 @@ fun CharacterListScreen(
                 CharacterItem(
                     character = character,
                     onClick = {
-                        navController.navigate("detail")
+                        navController.navigate("detail/${character.id}")
                     }
                 )
             }
@@ -57,7 +57,8 @@ fun CharacterItem(
             modifier = Modifier.padding(16.dp)
         ) {
             Text(text = character.name)
-            Text(text = "${character.species} - ${character.status}")
+            Text(text = character.species)
+            Text(text = character.status)
         }
     }
 }
