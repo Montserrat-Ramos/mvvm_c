@@ -16,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.mvvm_c.data.model.DataModel
+import com.example.mvvm_c.presentation.components.CharacterCard
 
 @Composable
 fun CharacterListScreen(
@@ -31,7 +32,7 @@ fun CharacterListScreen(
 
         LazyColumn {
             items(items = state.characters) { character ->
-                CharacterItem(
+                CharacterCard(
                     character = character,
                     onClick = {
                         navController.navigate("detail/${character.id}")
