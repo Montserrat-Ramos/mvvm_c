@@ -16,6 +16,7 @@ import com.example.mvvm_c.data.model.Character
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
+import com.example.mvvm_c.presentation.components.CharacterCard
 
 
 @Composable
@@ -34,11 +35,15 @@ fun CharacterListScreen(
 
         //recorrer el arreglo
         items(state.characters){
-            character -> CharacterItem(
+            character ->
+            CharacterCard(
             character = character,
-        ) {
-            navController.navigate("detail/${character.id}")
-        }
+                onClick = {
+                    navController.navigate("detail/${character.id}")
+                }
+        )
+
+
         }
     }
 }
