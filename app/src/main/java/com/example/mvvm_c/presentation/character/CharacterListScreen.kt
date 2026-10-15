@@ -29,7 +29,7 @@ import androidx.navigation.NavController
 import com.example.mvvm_c.presentation.component.CharacterCard
 
 @Composable
-fun CharacterListScreen(
+fun CharacterListScreen( //
     navController: NavController,
     viewModel: CharacterListViewModel = viewModel()
 ) {
