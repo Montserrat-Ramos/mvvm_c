@@ -7,38 +7,42 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class CharacterListViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow(value = CharacterListUiState())
+
+    private val allCharacters = listOf(
+        DataModel(
+            id = 1,
+            name = "Rick Sanchez",
+            status = "Alive",
+            species = "Humano",
+            image = ""
+        ),
+        DataModel(
+            id = 2,
+            name = "Morty Sanchez",
+            status = "Alive",
+            species = "Humano",
+            image = ""
+        ),
+        DataModel(
+            id = 3,
+            name = "Summer Sanchez",
+            status = "Alive",
+            species = "Humano",
+            image = ""
+        )
+    )
+
+    private val _uiState = MutableStateFlow(CharacterListUiState(characters = allCharacters))
     val uiState: StateFlow<CharacterListUiState> = _uiState.asStateFlow()
 
-    //Inicializar
-    init {
-        loadCharacters()
-    }
-
-    private fun loadCharacters() {
-        val characters = listOf(
-            DataModel(
-                id = 1,
-                name = "Rick Sanchez",
-                status = "Alive",
-                species = "Humano",
-                image = ""
-            ),
-            DataModel(
-                id = 2,
-                name = "Morty Sanchez",
-                status = "Alive",
-                species = "Humano",
-                image = ""
-            ),
-            DataModel(
-                id = 2,
-                name = "Summer Sanchez",
-                status = "Alive",
-                species = "Humano",
-                image = ""
-            )
-        )
-        _uiState.value = CharacterListUiState(characters = characters)
+    fun onSearchQueryChange(query: String) {
+        val filteredCharacters = if (query.isBlank()) {
+            allCharacters
+        } else {
+            allCharacters.filter { character ->
+                character.name.contains(query, ignoreCase = true)
+            }
+        }
+        _uiState.value = CharacterListUiState(characters = filteredCharacters)
     }
 }
