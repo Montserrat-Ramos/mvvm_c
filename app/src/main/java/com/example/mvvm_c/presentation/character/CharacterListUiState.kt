@@ -6,5 +6,6 @@ data class CharacterListUiState(
     val title: String = "Personajes de Rick and Morty",
     val isLoading: Boolean = false,
     val characters: List<Character> = emptyList(),
-    val error: String? = null
+    val error: String? = null,
+    val searchQuery: String = ""
 )

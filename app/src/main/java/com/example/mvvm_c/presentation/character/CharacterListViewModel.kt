@@ -5,47 +5,53 @@ import com.example.mvvm_c.data.model.Character
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
-class CharacterListViewModel: ViewModel() {
-    private val _uiState =
-        MutableStateFlow( value = CharacterListUiState()
+class CharacterListViewModel : ViewModel() {
+
+    private val allCharacters = listOf(
+        Character(
+            id = 1,
+            name = "Rick Sanchez",
+            status = "Alive",
+            species = "Human",
+            image = ""
+        ),
+        Character(
+            id = 2,
+            name = "Morty Smith",
+            status = "Alive",
+            species = "Human",
+            image = ""
+        ),
+        Character(
+            id = 3,
+            name = "Summer Smith",
+            status = "Alive",
+            species = "Human",
+            image = ""
         )
-    val uiState: StateFlow<CharacterListUiState> =
-            _uiState.asStateFlow()
+    )
 
-    //Inicializar
-     init {
-         loadCharacters()
-     }
+    private val _uiState = MutableStateFlow(
+        CharacterListUiState(characters = allCharacters)
+    )
+    val uiState: StateFlow<CharacterListUiState> = _uiState.asStateFlow()
 
-    private fun loadCharacters(){
-        val characters = listOf(
-            Character(
-                id = 1,
-                name = "Rick Sanchez",
-                status = "Alive",
-                species = "Human",
-                image = ""
-            ),
-            Character(
-                id = 2,
-                name = "Morty Smith",
-                status = "Alive",
-                species = "Human",
-                image = ""
+    fun onSearchQueryChange(query: String) {
+        val filteredCharacters = if (query.isBlank()) {
+            allCharacters
+        } else {
+            allCharacters.filter { character ->
+                character.name.contains(query, ignoreCase = true)
+            }
+        }
 
-            ),
-            Character(
-                id = 3,
-                name = "Summer Smith",
-                status = "Alive",
-                species = "Human",
-                image = ""
-
+        _uiState.update { state ->
+            state.copy(
+                searchQuery = query,
+                characters = filteredCharacters
             )
-        )
-        _uiState.value =
-            CharacterListUiState(
-                characters = characters)
+        }
     }
 }
