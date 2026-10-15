@@ -4,6 +4,7 @@ import com.example.mvvm_c.data.model.DataModel
 
 data class CharacterListUIState(
     val title: String = "Personajes de Rick and Morty",
+    val searchQuery: String = "",
     val isLoading: Boolean = false,
     val characters: List<DataModel> = emptyList(),
     val error: String? = null
