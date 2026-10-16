@@ -8,8 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class CharacterListViewModel: ViewModel() {
-
-	private val allCharacter = listOf(
+	private val allCharacters = listOf(
 		Character(
 			id = 1,
 			name = "Rick Sánchez",
@@ -49,7 +48,7 @@ class CharacterListViewModel: ViewModel() {
 		),
 	)
 
-	private val _uiState = MutableStateFlow(CharacterListUiState(characters = allCharacter))
+	private val _uiState = MutableStateFlow(CharacterListUiState(characters = allCharacters))
 
 	val uiState: StateFlow<CharacterListUiState> =
 		_uiState.asStateFlow()
@@ -57,57 +56,15 @@ class CharacterListViewModel: ViewModel() {
 	fun onSearchQueryChange(query: String){
 		val filteredCharacter =
 			if(query.isBlank()) {
-				allCharacter
+				allCharacters
 			}else {
-				allCharacter.filter {
-						character -> character.name.contains(query, ignoreCase = true)
+				allCharacters.filter {
+						character -> character.name.contains(query, ignoreCase = true)||
+						character.species.contains(query, ignoreCase = true)||
+						character.status.contains(query, ignoreCase = true)
 				}
 			}
 
-
-//    init {
-//        loadCharacters()
-//    }
-//    private fun loadCharacters(){
-//        val characters = listOf(
-//            Character(
-//                id = 1,
-//                name = "Rick Sánchez",
-//                status = "Alive",
-//                species= "Human",
-//                image = ""
-//            ),
-//
-//            Character(
-//                id = 2,
-//                name = "Morty Smith",
-//                status = "Alive",
-//                species= "Human",
-//                image = ""
-//            ),
-//
-//            Character(
-//                id = 3,
-//                name = "Summer Smith",
-//                status = "Alive",
-//                species= "Human",
-//                image = ""
-//            ),
-//            Character(
-//                id = 4,
-//                name = "Summer Smith",
-//                status = "Alive",
-//                species= "Human",
-//                image = ""
-//            ),
-//            Character(
-//                id = 5,
-//                name = "Summer Smith",
-//                status = "Alive",
-//                species= "Human",
-//                image = ""
-//            ),
-//        )
 
 		_uiState.update {
 				state -> state.copy(searchQuery = query,

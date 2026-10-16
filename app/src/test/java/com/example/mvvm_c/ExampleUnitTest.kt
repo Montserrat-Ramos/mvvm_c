@@ -1,4 +1,4 @@
-package com.example.mvvm_c
+package com.example.myapplicationinitial
 
 import org.junit.Test
 
