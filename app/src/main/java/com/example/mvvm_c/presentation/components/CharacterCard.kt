@@ -24,71 +24,73 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mvvm_c.data.model.Character
-
 
 @Composable
 fun CharacterCard(
     character: Character,
     onClick: () -> Unit
-){
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .clickable{onClick() },
-
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() },
         shape = RoundedCornerShape(20.dp),
-        elevation = CardDefaults.
-        cardElevation(defaultElevation = 4.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         )
-    ){
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            CharacterAvatar(character.name)
-
+            CharacterAvatar(name = character.name)
             Spacer(modifier = Modifier.size(16.dp))
-
-            Column(modifier = Modifier.weight(1f)){
-                Text(text = character.name,
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = character.name,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    StatusBadge(status = character.status)
-                }
-                Text(text = ",",
-                    fontSize = 18.sp,
-                    //fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                    //maxLines = 1,
-                    //overflow = TextOverflow.Ellipsis
                 )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Especie: ${character.species}",
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                StatusBadge(status = character.status)
             }
         }
+    }
 }
 
 @Composable
-fun StatusBadge(status: String){
-    Surface(shape = RoundedCornerShape(50),
-        color = MaterialTheme.colorScheme.secondaryContainer)
-    {
-        Row(modifier = Modifier.padding(horizontal = 10.dp,
-            vertical = 5.dp),
+fun StatusBadge(status: String) {
+    Surface(
+        shape = RoundedCornerShape(50),
+        color = MaterialTheme.colorScheme.secondaryContainer
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(5.dp)
-        )
-        {
+        ) {
             Text(
-                text = "-",
+                text = "·",
                 fontSize = 10.sp,
                 color = MaterialTheme.colorScheme.primary
             )
@@ -103,23 +105,43 @@ fun StatusBadge(status: String){
 }
 
 @Composable
-fun CharacterAvatar(name: String){
-    val initials = name.split("").take(2).mapNotNull {
-        word -> word.firstOrNull()?.uppercase()
-    }.joinToString("")
+fun CharacterAvatar(name: String) {
+    val initials = name.split(" ")
+        .mapNotNull { it.firstOrNull()?.uppercase() }
+        .take(2)
+        .joinToString("")
 
-    Box(modifier = Modifier
-        .size(70.dp)
-        .clip(CircleShape)
-        .background(
-            MaterialTheme.colorScheme.primaryContainer
-        ), contentAlignment = Alignment.Center)
-    {
+    Box(
+        modifier = Modifier
+            .size(70.dp)
+            .clip(CircleShape)
+            .background(
+                color = MaterialTheme.colorScheme.primaryContainer
+            ),
+        contentAlignment = Alignment.Center
+    ) {
         Text(
             text = initials,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CharacterCardPreview() {
+    MaterialTheme {
+        CharacterCard(
+            character = Character(
+                id = 1,
+                name = "Rick Sánchez",
+                status = "Alive",
+                species = "Human",
+                image = ""
+            ),
+            onClick = {}
         )
     }
 }

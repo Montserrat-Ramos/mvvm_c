@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+// Redirect build output directory outside OneDrive to prevent OneDrive file locking/reparse errors
+layout.buildDirectory.set(file("C:/tmp/gradle_builds/mvvm_c/app"))
+
 android {
     namespace = "com.example.mvvm_c"
     compileSdk {
