@@ -24,4 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "mvvm_c"
 include(":app")
- 
+include(":app")
