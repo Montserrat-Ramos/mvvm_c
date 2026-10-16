@@ -3,13 +3,17 @@ package com.example.mvvm_c.presentation.character
 //import androidx.compose.foundation.layout.Column
 import android.R.attr.fontWeight
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 //import androidx.compose.material3.Button
@@ -54,7 +58,8 @@ fun CharacterListScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Text(text = "Explora los personajes de Rick and Morty",
+        Text(
+            text = "Explora los personajes de Rick and Morty",
         fontSize = 15.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -68,23 +73,37 @@ fun CharacterListScreen(
             },
             leadingIcon = { Icon(imageVector = Icons.Default.Search,
                 contentDescription = "Buscar"
-            ) })
-    }
+            ) }, shape = RoundedCornerShape(16.dp),
+            singleLine = true
+        )
+        Spacer(modifier = Modifier.height(20.dp))
 
-    LazyColumn(
-        modifier =  Modifier.padding(16.dp)
-    ) {
+        if(state.characters.isEmpty()){
+            Text(text = "No se encontraron personajes",
+                modifier = Modifier.padding(top = 24.dp),
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }else{
 
-        items(state.characters){
-            character ->
-            CharacterCard (
-                character = character,
-                onClick = {
-                    navController.navigate("detail/${character.id}")
+            LazyColumn(
+                modifier =  Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(
+                    bottom = 24.dp
+                ), verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(state.characters){
+                        character ->
+                    CharacterCard (
+                        character = character,
+                        onClick = {
+                            navController.navigate("detail/${character.id}")
+                        }
+                    )
                 }
-            )
+            }
         }
     }
+
+
 //    Column(
 //        modifier = Modifier.padding(16.dp)
 //    ) {
@@ -99,23 +118,4 @@ fun CharacterListScreen(
 //            Text(text = "Ver detalle")
 //        }
 //    }
-}
-
-@Composable
-fun CharacterCard (
-    character: Character,
-    onClick: ()-> Unit
-){
-    Card(
-        modifier =  Modifier.fillMaxWidth()
-        .padding(vertical = 8.dp)
-        .clickable{onClick()}
-    ){
-
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = character.name)
-            Text(text = "Especie: ${character.species}")
-            Text(text = "Estado: ${character.status}")
-        }
-    }
 }
