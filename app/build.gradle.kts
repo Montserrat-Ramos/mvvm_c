@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+// Redirect build output directory outside OneDrive to prevent OneDrive file locking/reparse errors
+layout.buildDirectory.set(file("C:/tmp/gradle_builds/mvvm_c/app"))
+
 android {
     namespace = "com.example.mvvm_c"
     compileSdk {
@@ -36,6 +39,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.compose.material:material-icons-core:1.6.0")
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)

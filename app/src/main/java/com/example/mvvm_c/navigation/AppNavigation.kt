@@ -9,22 +9,24 @@ import com.example.mvvm_c.presentation.detail.CharacterDetailScreen
 
 @Composable
 fun AppNavigation() {
-
     val navController = rememberNavController()
 
     NavHost(
         navController = navController,
         startDestination = "characters"
     ) {
-
         composable("characters") {
             CharacterListScreen(
                 navController = navController
             )
         }
 
-        composable("detail") {
-            CharacterDetailScreen()
+        composable("detail/{characterId}") { backStackEntry ->
+            val characterId = backStackEntry.arguments
+                ?.getString("characterId")
+                ?.toIntOrNull()
+                ?: 0
+            CharacterDetailScreen(characterId = characterId)
         }
     }
 }
