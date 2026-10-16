@@ -1,4 +1,4 @@
-package com.example.mvvm_c.componetns
+package com.example.mvvm_c.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

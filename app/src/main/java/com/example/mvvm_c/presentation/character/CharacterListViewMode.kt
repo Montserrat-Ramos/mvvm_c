@@ -5,43 +5,54 @@ import com.example.mvvm_c.data_model.Character
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class CharacterListViewModel: ViewModel() {
 
-    private val _uiState = MutableStateFlow(CharacterListUiState())
-    val uiState: StateFlow<CharacterListUiState> = _uiState.asStateFlow()
-
-    init {
-        loadcharacter()
-    }
-
-    private fun loadcharacter(){
-        val characters = listOf(
-            Character(
-                id = 1,
-                name = "Rick Sanchez",
-                status = "Alive",
-                species = "Human",
-                image = ""
-            ),
-            Character(
-                id = 2,
-                name = "Morty Smith",
-                status = "Alive",
-                species = "Human",
-                image = ""
-            ),
-            Character(
-                id = 3,
-                name = "Beth Smith",
-                status = "Alive",
-                species = "Human",
-                image = ""
-            )
+    private val allCharacters = listOf(
+        Character(
+            id = 1,
+            name = "Rick Sanchez",
+            status = "Alive",
+            species = "Human",
+            image = ""
+        ),
+        Character(
+            id = 2,
+            name = "Morty Smith",
+            status = "Alive",
+            species = "Human",
+            image = ""
+        ),
+        Character(
+            id = 3,
+            name = "Beth Smith",
+            status = "Alive",
+            species = "Human",
+            image = ""
         )
+    )
 
-        _uiState.value = CharacterListUiState(
-            character = characters
-        )
+    private val _uiState = MutableStateFlow(
+        value = CharacterListUiState(characters = allCharacters)
+    )
+
+    val uiState: StateFlow<CharacterListUiState> =
+        _uiState.asStateFlow()
+
+    fun onSearchQueryChange(query: String){
+        val filteredCharacters =
+            if (query.isBlank()){
+                allCharacters
+            }else{
+                allCharacters.filter { character ->
+                    character.name.contains(other = query, ignoreCase = true)
+                }
+            }
+
+        _uiState.update { state ->
+            state.copy(searchQuery = query,
+                characters = filteredCharacters)
+        }
     }
 }
