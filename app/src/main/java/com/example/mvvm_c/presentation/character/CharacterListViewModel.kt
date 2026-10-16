@@ -1,45 +1,74 @@
 package com.example.mvvm_c.presentation.character
 
 import androidx.lifecycle.ViewModel
-import com.example.mvvm_c.data.model.Character
 import kotlinx.coroutines.flow.MutableStateFlow
+import com.example.mvvm_c.data.model.Character
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
-class CharacterListViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow(CharacterListUIState())
-    val uiState: StateFlow<CharacterListUIState> = _uiState.asStateFlow()
-
-    init {
-        loadCharacters()
-    }
-
-    private fun loadCharacters() {
-        val character = listOf(
+class CharacterListViewModel: ViewModel() {
+    private val allCharacters = listOf(
             Character(
                 id = 1,
-                name = "Rick",
-                status = "alive",
-                species = "human",
-                image = "",
+                name = "Rick Sánchez",
+                status = "Alive",
+                species= "Human",
+                image = ""
             ),
+
             Character(
                 id = 2,
-                name = "Morty",
-                status = "alive",
-                species = "human",
-                image = "",
+                name = "Morty Smith",
+                status = "Alive",
+                species= "Human",
+                image = ""
             ),
+
             Character(
                 id = 3,
                 name = "Summer Smith",
-                status = "alive",
-                species = "human",
-                image = "",
+                status = "Alive",
+                species= "Human",
+                image = ""
             ),
-        )
-        _uiState.value = CharacterListUIState(
-            character = character,
-        )
+            Character(
+                id = 4,
+                name = "Summer Smith",
+                status = "Alive",
+                species= "Human",
+                image = ""
+            ),
+            Character(
+                id = 5,
+                name = "Summer Smith",
+                status = "Alive",
+                species= "Human",
+                image = ""
+            ),
+    )
+
+    private val _uiState = MutableStateFlow(CharacterListUiState(characters = allCharacters))
+
+    val uiState: StateFlow<CharacterListUiState> =
+        _uiState.asStateFlow()
+
+    fun onSearchQueryChange(query: String){
+        val filteredCharacter =
+            if(query.isBlank()) {
+                allCharacters
+            }else {
+                allCharacters.filter {
+                    character -> character.name.contains(query, ignoreCase = true)||
+                    character.species.contains(query, ignoreCase = true)||
+                    character.status.contains(query, ignoreCase = true)
+            }
+    }
+
+
+        _uiState.update {
+            state -> state.copy(searchQuery = query,
+                characters = filteredCharacter)
+        }
     }
 }

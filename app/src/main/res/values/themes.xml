@@ -2,4 +2,6 @@
 <resources>
 
     <style name="Theme.Mvvm_c" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.MyApplicationInitial" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
