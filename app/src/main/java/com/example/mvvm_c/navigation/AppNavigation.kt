@@ -1,6 +1,7 @@
 package com.example.mvvm_c.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -23,8 +24,14 @@ fun AppNavigation() {
             )
         }
 
-        composable("detail") {
-            CharacterDetailScreen()
+        composable("detail/{characterId}") {
+            backStackEntry->
+            val characterId=
+                backStackEntry.arguments
+                    ?.getString("characterId")
+                    ?.toIntOrNull()
+                    ?:0
+            CharacterDetailScreen(characterId = characterId)
         }
     }
 }
