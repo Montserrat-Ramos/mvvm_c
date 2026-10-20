@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mvvm_c.presentation.character.CharacterListScreen
 import com.example.mvvm_c.presentation.detail.CharacterDetailScreen
+import com.example.mvvm_c.presentation.register.RegisterScreen
 
 @Composable
 fun AppNavigation() {
@@ -15,7 +16,8 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = "characters"
+        //startDestination = "characters"
+        startDestination = "register"
     ) {
 
         composable("characters") {
@@ -24,14 +26,18 @@ fun AppNavigation() {
             )
         }
 
-        composable("detail/{characterId}") {
-            backStackEntry ->
-            val characterId =
-                backStackEntry.arguments
-                    ?.getString("characterId")
-                    ?.toIntOrNull()
-                    ?: 0
-            CharacterDetailScreen(characterId = characterId)
+        composable("register") {
+            RegisterScreen()
         }
+
+//        composable("detail/{characterId}") {
+//            backStackEntry ->
+//            val characterId =
+//                backStackEntry.arguments
+//                    ?.getString("characterId")
+//                    ?.toIntOrNull()
+//                    ?: 0
+//            CharacterDetailScreen(characterId = characterId)
+//        }
     }
 }
