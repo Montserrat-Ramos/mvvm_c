@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mvvm_c.presentation.character.CharacterListScreen
 import com.example.mvvm_c.presentation.detail.CharacterDetailScreen
+import com.example.mvvm_c.screens.RegisterScreen
 
 @Composable
 fun AppNavigation() {
@@ -14,8 +15,12 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = "characters"
+        startDestination = "register"
     ) {
+
+        composable("register") {
+            RegisterScreen()
+        }
 
         composable("characters") {
             CharacterListScreen(
