@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mvvm_c.navigation.AppNavigation
+import com.example.mvvm_c.presentation.registrer.RegistrerScreen
 import com.example.mvvm_c.ui.theme.Mvvm_cTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
             Mvvm_cTheme () {
 
-                AppNavigation()
+                RegistrerScreen()
                 //Aplicacion C
 
             }
