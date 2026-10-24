@@ -1,6 +1,5 @@
 package com.example.mvvm_c.presentation.character
 
-import android.icu.text.CaseMap
 import com.example.mvvm_c.data.model.Character
 
 data class CharacterListUIState(

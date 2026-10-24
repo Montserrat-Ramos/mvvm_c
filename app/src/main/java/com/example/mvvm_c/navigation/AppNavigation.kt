@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mvvm_c.presentation.character.CharacterListScreen
 import com.example.mvvm_c.presentation.detail.CharacterDetailScreen
+import com.example.mvvm_c.presentation.register.RegisterScreen
 
 @Composable
 fun AppNavigation() {
@@ -25,6 +26,10 @@ fun AppNavigation() {
 
         composable("detail") {
             CharacterDetailScreen()
+        }
+
+        composable("register") {
+            RegisterScreen()
         }
     }
 }
