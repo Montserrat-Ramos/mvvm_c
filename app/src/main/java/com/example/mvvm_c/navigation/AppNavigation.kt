@@ -4,8 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.mvvm_c.presentation.character.CharacterListScreen
-import com.example.mvvm_c.presentation.detail.CharacterDetailScreen
+import com.example.mvvm_c.screens.SignUpScreen
 
 @Composable
 fun AppNavigation() {
@@ -14,22 +13,13 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = "characters"
+        startDestination = "register"
     ) {
 
-        composable("characters") {
-            CharacterListScreen(
+        composable("register") {
+            SignUpScreen(
                 navController = navController
             )
-        }
-
-        composable("detail/{characterId}") {
-            backStackEntry ->
-                val characterId = backStackEntry.arguments
-                    ?.getString( "characterId" )
-                    ?.toIntOrNull()
-                    ?:0
-            CharacterDetailScreen(characterId = characterId)
         }
     }
 }
