@@ -5,43 +5,27 @@ import com.example.mvvm_c.data_model.Character
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
-class CharacterListViewModel: ViewModel() {
+class CharacterListViewModel : ViewModel() {
 
-    private val _uiState = MutableStateFlow(CharacterListUiState())
+    private val allCharacters = listOf(
+        Character(id = 1, name = "Rick Sanchez", status = "Alive", species = "Human", image = ""),
+        Character(id = 2, name = "Morty Smith", status = "Alive", species = "Human", image = ""),
+        Character(id = 3, name = "Beth Smith", status = "Alive", species = "Human", image = "")
+    )
+
+    private val _uiState = MutableStateFlow(
+        CharacterListUiState(characters = allCharacters)
+    )
     val uiState: StateFlow<CharacterListUiState> = _uiState.asStateFlow()
 
-    init {
-        loadcharacter()
-    }
-
-    private fun loadcharacter(){
-        val characters = listOf(
-            Character(
-                id = 1,
-                name = "Rick Sanchez",
-                status = "Alive",
-                species = "Human",
-                image = ""
-            ),
-            Character(
-                id = 2,
-                name = "Morty Smith",
-                status = "Alive",
-                species = "Human",
-                image = ""
-            ),
-            Character(
-                id = 3,
-                name = "Beth Smith",
-                status = "Alive",
-                species = "Human",
-                image = ""
-            )
-        )
-
-        _uiState.value = CharacterListUiState(
-            character = characters
-        )
+    fun onSearchQueryChange(query: String) {
+        val filtered = if (query.isBlank()) {
+            allCharacters
+        } else {
+            allCharacters.filter { it.name.contains(query, ignoreCase = true) }
+        }
+        _uiState.update { it.copy(searchQuery = query, characters = filtered) }
     }
 }
