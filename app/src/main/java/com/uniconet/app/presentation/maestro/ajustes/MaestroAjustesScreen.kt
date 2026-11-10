@@ -115,7 +115,7 @@ fun MaestroAjustesScreen(
             onCancelar = { mostrarConfirmacion = false },
             onConfirmar = {
                 mostrarConfirmacion = false
-                viewModel.cerrarSesion()
+                // Se mantiene la sesión activa para permitir acceso con huella
                 onCerrarSesion()
             }
         )
