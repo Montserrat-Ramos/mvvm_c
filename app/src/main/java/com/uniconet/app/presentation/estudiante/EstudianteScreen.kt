@@ -308,36 +308,6 @@ fun EstudianteScreen(
 
             Spacer(modifier = Modifier.height(22.dp))
 
-            Text(
-                text = "O accede rápido",
-                fontSize = 13.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.White.copy(alpha = 0.8f)
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Button(
-                onClick = {},
-                shape = RoundedCornerShape(30.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black.copy(alpha = 0.65f),
-                    contentColor = Color.White
-                ),
-                border = BorderStroke(1.dp, Color.White.copy(alpha = 0.22f)),
-                modifier = Modifier.height(50.dp)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("Continuar con Google", fontWeight = FontWeight.SemiBold)
-                    Spacer(modifier = Modifier.size(10.dp))
-                    Image(
-                        painter = painterResource(id = R.drawable.buscar),
-                        contentDescription = "Google",
-                        modifier = Modifier.size(22.dp)
-                    )
-                }
-            }
-
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "Al continuar aceptas los Términos de uso y la Política de privacidad de Uniconet.",

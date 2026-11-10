@@ -125,13 +125,8 @@ fun MaestroHomeScreen(
                         Spacer(modifier = Modifier.width(8.dp))
                     }
                 }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    IconButton(onClick = { }) {
-                        Icon(Icons.Default.Search, contentDescription = "Buscar", tint = Color.White, modifier = Modifier.size(26.dp))
-                    }
-                    IconButton(onClick = onRegresar) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Regresar", tint = Color.White, modifier = Modifier.size(28.dp))
-                    }
+                IconButton(onClick = onRegresar) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Regresar", tint = Color.White, modifier = Modifier.size(28.dp))
                 }
             }
 
