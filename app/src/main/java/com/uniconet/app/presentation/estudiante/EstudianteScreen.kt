@@ -77,18 +77,33 @@ fun EstudianteScreen(
     var mostrarExito by remember { mutableStateOf(false) }
     val sesionActiva by viewModel.sesionActiva.collectAsState()
     val context = LocalContext.current
+    var biometriaSolicitada by remember { mutableStateOf(false) }
 
-    fun iniciarConHuella() {
+    fun iniciarConHuella(auto: Boolean = false) {
         val activity = context as? FragmentActivity
         if (activity != null && BiometricHelper.puedeAutenticar(context)) {
             BiometricHelper.autenticar(
                 activity = activity,
                 titulo = "Acceso Estudiante",
                 subtitulo = "Confirma tu huella para continuar",
-                onExito = { onLoginExitoso() }
+                onExito = { onLoginExitoso() },
+                onError = {
+                    if (auto) biometriaSolicitada = false
+                }
             )
         } else if (sesionActiva) {
             onLoginExitoso()
+        } else if (auto) {
+            biometriaSolicitada = false
+        }
+    }
+
+    LaunchedEffect(sesionActiva) {
+        if (sesionActiva && !biometriaSolicitada) {
+            biometriaSolicitada = true
+            iniciarConHuella(auto = true)
+        } else if (!sesionActiva) {
+            biometriaSolicitada = false
         }
     }
 
