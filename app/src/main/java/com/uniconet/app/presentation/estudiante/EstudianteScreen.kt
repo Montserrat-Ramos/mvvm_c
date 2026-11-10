@@ -77,23 +77,18 @@ fun EstudianteScreen(
     var mostrarExito by remember { mutableStateOf(false) }
     val sesionActiva by viewModel.sesionActiva.collectAsState()
     val context = LocalContext.current
-    var biometriaIntentada by remember { mutableStateOf(false) }
 
-    LaunchedEffect(sesionActiva) {
-        if (sesionActiva && !biometriaIntentada) {
-            biometriaIntentada = true
-            val activity = context as? FragmentActivity
-            if (activity != null && BiometricHelper.puedeAutenticar(context)) {
-                BiometricHelper.autenticar(
-                    activity = activity,
-                    titulo = "Acceso Estudiante",
-                    subtitulo = "Confirma tu huella para continuar",
-                    onExito = { onLoginExitoso() }
-                )
-            } else {
-                // Si no hay biometría disponible, permite continuar con la sesión activa
-                onLoginExitoso()
-            }
+    fun iniciarConHuella() {
+        val activity = context as? FragmentActivity
+        if (activity != null && BiometricHelper.puedeAutenticar(context)) {
+            BiometricHelper.autenticar(
+                activity = activity,
+                titulo = "Acceso Estudiante",
+                subtitulo = "Confirma tu huella para continuar",
+                onExito = { onLoginExitoso() }
+            )
+        } else if (sesionActiva) {
+            onLoginExitoso()
         }
     }
 
@@ -302,6 +297,24 @@ fun EstudianteScreen(
                             .height(54.dp)
                     ) {
                         Text("Iniciar sesión", fontWeight = FontWeight.ExtraBold, fontSize = 15.sp)
+                    }
+
+                    if (sesionActiva) {
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Button(
+                            onClick = { iniciarConHuella() },
+                            shape = RoundedCornerShape(16.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.White.copy(alpha = 0.16f),
+                                contentColor = Color.White
+                            ),
+                            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.28f)),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
+                        ) {
+                            Text("Inicio por huella", fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                        }
                     }
                 }
             }
