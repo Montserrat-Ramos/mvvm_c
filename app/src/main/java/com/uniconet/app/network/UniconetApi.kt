@@ -20,38 +20,17 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
-/**
- * Endpoints REST para Uniconet en AWS.
- * Todos cuelgan de ApiConfig.BASE_URL (ej: http://<IP>:8080/api/)
- *
- * - GET  /books
- * - POST /books
- * - DELETE /books/{id}
- *
- * - GET  /foro/anuncios
- * - POST /foro/anuncios
- * - DELETE /foro/anuncios/{id}
- * - GET  /foro/anuncios/{id}/comentarios
- * - POST /foro/anuncios/{id}/comentarios
- *
- * - GET  /grupos
- * - POST /grupos
- * - DELETE /grupos/{id}
- * - PUT  /grupos/{id}/accion
- *
- * - POST /auth/login
- * - PUT  /auth/change-password
- */
+
 interface UniconetApi {
 
-    // ── Auth ───────────────────────────────────────────────
+    // ── Auth
     @POST("auth/login")
     suspend fun login(@Body body: LoginRequest): LoginResponse
 
     @PUT("auth/change-password")
     suspend fun changePassword(@Body body: ChangePasswordRequest): ApiMessage
 
-    // ── Libros ─────────────────────────────────────────────
+    // ── Libros
     @GET("books")
     suspend fun getBooks(): List<BookDto>
 
@@ -61,7 +40,7 @@ interface UniconetApi {
     @DELETE("books/{id}")
     suspend fun deleteBook(@Path("id") id: String): ApiMessage
 
-    // ── Foro ───────────────────────────────────────────────
+    // ── Foro
     @GET("foro/anuncios")
     suspend fun getAnuncios(): List<AnuncioDto>
 
@@ -77,7 +56,7 @@ interface UniconetApi {
     @POST("foro/anuncios/{id}/comentarios")
     suspend fun addComentario(@Path("id") anuncioId: String, @Body body: AddComentarioRequest): ComentarioDto
 
-    // ── Grupos especiales ──────────────────────────────────
+    // ── Grupos especiales
     @GET("grupos")
     suspend fun getGrupos(): List<GrupoDto>
 

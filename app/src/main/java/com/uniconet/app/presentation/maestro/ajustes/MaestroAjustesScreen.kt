@@ -45,7 +45,6 @@ import com.uniconet.app.presentation.components.FondoDegradado
 import com.uniconet.app.presentation.maestro.MaestroViewModel
 import com.uniconet.app.ui.theme.PaletaMaestro
 
-// Cuenta Maestro: sin Mi perfil ni Privacidad. Solo Notificaciones + Cambiar Contraseña + Cerrar sesión.
 @Composable
 fun MaestroAjustesScreen(
     onRegresar: () -> Unit = {},

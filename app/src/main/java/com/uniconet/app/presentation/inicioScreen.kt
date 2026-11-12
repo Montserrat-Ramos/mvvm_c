@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.uniconet.app.BuildConfig
 import com.uniconet.app.R
 
 private val FondoInicioArriba = Color(0xFF747475)
@@ -131,6 +132,15 @@ fun InicioScreen(
                 text = "Al continuar aceptas los Términos de uso y la Política de privacidad de Uniconect.",
                 fontSize = 11.sp,
                 color = TextoSecundarioInicio,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            Text(
+                text = BuildConfig.VERSION_NAME,
+                fontSize = 10.sp,
+                color = TextoSecundarioInicio.copy(alpha = 0.7f),
                 textAlign = TextAlign.Center
             )
         }

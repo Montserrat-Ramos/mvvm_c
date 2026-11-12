@@ -11,8 +11,7 @@ import kotlinx.coroutines.flow.map
 
 private val Context.dataStoreAuth by preferencesDataStore(name = "uniconet_auth")
 
-// Contraseñas locales por rol y estado de sesión (para biometría).
-// Por defecto: Estudiante sebas@gmail.com / sebas, Maestro maestro@gmail.com / maestro123
+
 class AuthRepository(private val context: Context) {
 
     private val keyEstudiante = stringPreferencesKey("pass_estudiante")

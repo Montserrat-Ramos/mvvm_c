@@ -13,8 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-// ViewModel compartido para Estudiante (descargar) y Maestro (subir).
-// Mantiene datos en base local (DataStore) hasta que haya backend.
+
 class BibliotecaViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repo = BookRepository(application.applicationContext)

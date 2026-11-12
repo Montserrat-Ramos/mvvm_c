@@ -9,17 +9,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
-/**
- * Conexión a la API REST (Retrofit + OkHttp) lista para AWS Elastic IP.
- *
- * - Timeouts configurables en ApiConfig
- * - Logging BODY en debug (solo visible en logcat)
- * - Json con kotlinx.serialization
- *
- * Uso:
- *   val api = NetworkModule.createApi()
- *   val libros = api.getBooks()
- */
 object NetworkModule {
 
     private val json = Json {
@@ -28,9 +17,7 @@ object NetworkModule {
     }
 
     private val authInterceptor = Interceptor { chain ->
-        // Aquí puedes leer tu token de DataStore y agregarlo:
-        // val token = "Bearer tu-token"
-        // val request = chain.request().newBuilder().addHeader("Authorization", token).build()
+
         chain.proceed(chain.request())
     }
 
@@ -56,17 +43,10 @@ object NetworkModule {
             .build()
     }
 
-    // Crea la API lista para inyectar en ViewModels/Repos
     fun createApi(): UniconetApi = createRetrofit().create(UniconetApi::class.java)
 }
 
-/**
- * Utilidad para llamar a la API y caer a base local si no hay servidor.
- * Ejemplo sin excepción:
- *
- *   val resultado = ApiCall.tryApi { api.getBooks() }
- *   val libros = resultado ?: localBooks
- */
+
 object ApiCall {
     suspend fun <T> tryApi(block: suspend () -> T): T? = runCatching { block() }.getOrNull()
 
